@@ -29,10 +29,7 @@ jobs:
 
 
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
-        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
           SNYK_ORG: ${{ secrets.SNYK_ORG }}
-        with:
-          command: container monitor repositorio:tag --file=Dockerfile --org="$SNYK_ORG" 
+        run: snyk container monitor repositorio:tag --file=Dockerfile --org="$SNYK_ORG" --project-name="<name to Project test>" --include-ignores || true
