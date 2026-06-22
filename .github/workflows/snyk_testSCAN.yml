@@ -13,6 +13,7 @@ jobs:
       - name: Preparar imagen
         run: docker build . -t repositorio:tag
 
+
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         continue-on-error: true
