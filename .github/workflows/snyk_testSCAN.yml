@@ -1,4 +1,4 @@
-name: Example IAC SCAN using Snyk
+name: Example SAST SCAN using Snyk
 on:
   push:
   pull_request:
@@ -10,11 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@master
       
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         continue-on-error: true
@@ -22,4 +17,4 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
           SNYK_ORG: ${{ secrets.SNYK_ORG }}
         with:
-          command: iac test --report --org="$SNYK_ORG" --target-name="CICD Junio GitHub cambio IAC"
+          command: code test --report --org="$SNYK_ORG" --project-name="Example SAST SCAN using Snyk" --include-ignores
