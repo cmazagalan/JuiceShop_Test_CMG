@@ -24,12 +24,12 @@ jobs:
           apt-get update
           apt-get install -y docker.io
       
-      - name: Preparar imagen
-        run: docker build . -t repositorio:tag
-
-
       - name: Run Snyk to check for vulnerabilities
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
           SNYK_ORG: ${{ secrets.SNYK_ORG }}
-        run: snyk container monitor repositorio:tag --file=Dockerfile --org="$SNYK_ORG" --include-ignores || true
+        run: | 
+          npm install -g snyk
+          docker build . -t repositorio:tag
+          snyk auth "$SNYK_TOKEN"
+          snyk container monitor repositorio:tag --file=Dockerfile --org="$SNYK_ORG" --include-ignores || true
