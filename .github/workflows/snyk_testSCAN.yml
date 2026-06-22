@@ -1,4 +1,4 @@
-name: Example SAST SCAN using Snyk
+name: Example IAC SCAN using Snyk
 on:
   push:
   pull_request:
@@ -22,4 +22,4 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
           SNYK_ORG: ${{ secrets.SNYK_ORG }}
         with:
-          command: code test --report --org="$SNYK_ORG" --project-name="CICD Junio GitHub cambio SAST" --include-ignores 
+          command: iac test --report --org="$SNYK_ORG" --target-name="CICD Junio GitHub cambio IAC" --include-ignores
