@@ -1,4 +1,4 @@
-name: Example SAST SCAN using Snyk
+name: Example Container SCAN using Snyk
 on:
   push:
   pull_request:
@@ -9,7 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      
+
+      - name: Preparar imagen
+        run: docker build . -t repositorio:tag
+
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         continue-on-error: true
@@ -17,4 +20,4 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
           SNYK_ORG: ${{ secrets.SNYK_ORG }}
         with:
-          command: code test --report --org="$SNYK_ORG" --project-name="Example SAST SCAN using Snyk" --include-ignores
+          command: container monitor repositorio:tag --file=Dockerfile --org="$SNYK_ORG" -project-name="<name to Project test>"
