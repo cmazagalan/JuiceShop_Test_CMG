@@ -1,4 +1,4 @@
-name: Example SCA SCAN using Snyk
+name: Example SAST SCAN using Snyk
 on:
   push:
   pull_request:
@@ -15,10 +15,6 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install dependencies
-        run: npm install 
-
-
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
         continue-on-error: true
@@ -26,4 +22,4 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
           SNYK_ORG: ${{ secrets.SNYK_ORG }}
         with:
-          command: monitor --all-projects --org="$SNYK_ORG" --project-name:"CICD Junio GitHub cambio" --include-ignores 
+          command: code test --report --org="$SNYK_ORG" --project-name="CICD Junio GitHub cambio SAST" --include-ignores 
